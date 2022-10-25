@@ -8,7 +8,7 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
 
         <link rel="stylesheet" type="text/css" href="fa/css/font-awesome.min.css" />
-        <script src="remarkable/bin/remarkable.js"></script>
+        <script src="remarkable/dist/remarkable.js"></script>
 
         <link rel="stylesheet" type="text/css" href="style.css?a=<?php echo(rand()) /* Editing purposes... (disables caching) */ ?>" />
         <script src="script.js"></script>

@@ -7,7 +7,7 @@ require './_config.php';
 require './Slim/Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 require './ezSQL/shared/ez_sql_core.php';
-require './ezSQL/mysql/ez_sql_mysql.php';
+require './ezSQL/mysqli/ez_sql_mysqli.php';
 
 // Instantiate Slim
 $app = new \Slim\Slim();
@@ -39,7 +39,7 @@ class Database
 
 	public static function instance()
 	{
-		return self::$instance ? self::$instance : self::$instance = new ezSQL_mysql($db['username'], $db['password'], $db['database'], $db['host']);
+		return self::$instance ? self::$instance : self::$instance = new ezSQL_mysqli($db['username'], $db['password'], $db['database'], $db['host']);
 	}
 }
 
