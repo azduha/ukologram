@@ -2,9 +2,6 @@
 	path = fa
 	url = https://github.com/FortAwesome/Font-Awesome.git
 	branch = 4.x
-[submodule "remarkable"]
-	path = remarkable
-	url = https://github.com/jonschlinkert/remarkable.git
 [submodule "api/ezSQL"]
 	path = api/ezSQL
 	url = https://github.com/ezSQL/ezsql.git
