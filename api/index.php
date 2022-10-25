@@ -6,8 +6,8 @@ header('Access-Control-Allow-Origin: *');
 require './_config.php';
 require './Slim/Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
-require './ezSQL/ez_sql_core.php';
-require './ezSQL/ez_sql_mysql.php';
+require './ezSQL/shared/ez_sql_core.php';
+require './ezSQL/mysql/ez_sql_mysql.php';
 
 // Instantiate Slim
 $app = new \Slim\Slim();
