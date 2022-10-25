@@ -1,0 +1,10 @@
+# For ukologram api
+
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+RewriteBase /forum/ukologram/api/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+</IfModule>

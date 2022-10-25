@@ -1,0 +1,924 @@
+@keyframes pulse {
+    0% {
+        background-color: rgba(161, 3, 3, 1);
+    }
+    50% {
+        background-color: rgba(161, 3, 3, 0.4);
+    }
+    100% {
+        background-color: rgba(161, 3, 3, 1);
+    }
+}
+
+@keyframes pulse-full {
+    0% {
+        background-color: rgba(161, 3, 3, 0.5);
+        color: rgba(161, 3, 3, 0.5);
+    }
+    50% {
+        background-color: rgba(161, 3, 3, 0);
+        color: rgba(161, 3, 3, 0);
+    }
+    100% {
+        background-color: rgba(161, 3, 3, 0.5);
+        color: rgba(161, 3, 3, 0.5);
+    }
+}
+
+#planeContainer, #planeContainer * {
+    touch-action: none !important;
+}
+
+#planeSVG {
+    /*background-image: url('img/bg.svg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;*/
+}
+
+.undragable {
+    pointer-events: none;
+}
+
+body { 
+    user-select: none;
+    color: #252525;
+    font-size: 14px;
+}
+
+.task {
+    display: block;
+    position: absolute;
+    width: 250px;
+    border-radius: 5px;
+    background: white;
+    cursor: default;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    min-height: 63px;
+    border-width: 0 !important;
+}
+
+.task.disabled {
+    background: #fcfcfc !important;
+}
+
+.task.disabled .taskTitle, .task.disabled .taskSubtitle, .task.disabled .taskInfo {
+    opacity: 0.2;
+}
+
+.task.disabled .taskIcon:before {
+    opacity: 0.2;
+    color: #555555 !important;
+}
+
+.taskTitle {
+    display: inline-block;
+    width: calc(100% - 80px);
+    padding: 0;
+    font-weight: 600;
+    color: #252525;
+    margin: 10px 10px 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    min-height: 18px;
+}
+
+.taskIcon {
+    display: block;
+    float: left;
+    padding: 0;
+    font-size: 20px;
+    margin: 13px 10px 0 15px;
+    width: 20px;
+    font: normal normal normal 20px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.taskDraggable {
+    display: block;
+    text-align: right;
+    padding: 0;
+    font-size: 20px;
+    position: absolute;
+    top: 10px; right: 10px;
+    opacity: 0.2;
+    width: 10px;
+    cursor: move;
+    font: normal normal normal 20px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.taskDraggable:after {
+    content: '\f142';
+}
+
+.taskSubtitle {
+    display: block;
+    clear: both;
+    padding: 0 15px 10px 15px;
+    margin: 0;
+    font-size: 12px;
+}
+
+.taskInfo {
+    display: block;
+    clear: both;
+    padding: 0 15px 10px 15px;
+    margin: 0;
+    font-size: 12px;
+    color: rgba(0,0,0,0.4);
+}
+
+#arrow {
+    fill:#252525;
+}
+
+.taskConnection {
+    stroke:#252525;
+    stroke-width:2;
+    cursor: not-allowed;
+}
+
+.taskConnection.long {
+    opacity: 0.05;
+}
+
+.info-icon {
+    display: inline-block;
+    margin: 0 10px 5px 0;
+}
+
+.notifications {
+    display: inline-block;
+    color: white;
+    background: #a10303;
+    border-radius: 100px;
+    padding: 3px 3px;
+    width: 17px;
+    margin: 0 10px 5px 0;
+    text-align: center;
+    font-weight: bold;
+    background-color: #222;
+    animation-name: pulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.text-gray {
+    color: #586069;
+}
+
+#plateContainer {
+    background-color: white;
+}
+
+.overview .task *:not(.taskIcon):not(.notifications):not(.taskInfo) {
+    opacity: 0;
+}
+
+.overview .task .taskIcon {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    width: 60px;
+    margin: 0;
+}
+
+.overview .task .notifications {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-size: 1;
+    margin: 0;
+    border-radius: 5px;
+    z-index: -1;
+    animation-name: pulse-full;
+}
+
+.overview .taskConnection {
+    stroke-width: 6;
+}
+
+.overview .task {
+    border-width: 5px;
+}
+
+#menuContainer {
+    z-index: 99;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#menuContainer .button {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 100%;
+    background: #EEEEEE;
+    cursor: pointer;
+    position: relative;
+}
+
+#menuContainer .button:hover {
+    background: #CCCCCC;
+}
+
+#menuContainer .button.enabled {
+    background: #CCCCCC;
+}
+
+.button.dot:after {
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 0;
+    left: 0;
+    border-radius: 100%;
+    content:'';
+    background-color: #048104;
+}
+
+#menuContainer .separator {
+    display: inline-block;
+    width: 10px;
+}
+
+#menuOverlayContainer {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 90;
+}
+
+#menuOverlayContainer .menu {
+    display: none;
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    max-width: calc(100% - 60px);
+    max-height: calc(100% - 60px);
+    border-radius: 5px;
+    background: #EEEEEE;
+    z-index: 99;
+    user-select: none;
+}
+
+#menuOverlayContainer.menu-notify #menu-notify.menu {
+    display: block;
+    height: 300px;
+    width: 500px;
+}
+
+#menuOverlayContainer.menu-filter #menu-filter.menu {
+    display: block;
+    padding: 15px 18px;
+    width: 200px;
+}
+
+#menuOverlayContainer .menu:before {
+    display: block;
+    content: '';
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #EEEEEE;
+    position: absolute;
+    top: -5px;
+}
+
+#menu-notify.menu:before {
+    right: 10px;
+}
+
+#menu-filter.menu:before {
+    right: 44px;
+}
+
+#menu-notify .notification {
+    display: block;
+    margin: 3px 3px 10px 3px;
+    padding: 7px 10px;
+    background: white;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.notificationIcon {
+    position: absolute;
+    font-size: 20px;
+    top: 50%;
+    left: 12px;
+    transform: translate(0, -50%);
+    display: block;
+    line-height: 100%;
+}
+
+.notificationTitle {
+    margin-left: 35px;
+}
+
+.notificationSubtitle {
+    font-size: 10px;
+    color: rgba(0,0,0,0.4);
+    margin-left: 35px;
+}
+
+.scrollContainer {
+    overflow-y: auto;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    bottom: 5px;
+    right: 5px;
+}
+
+.notifyClearAll {
+    text-decoration: none;
+    color: inherit;
+    font-size: 12px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+.notifyClearAll * {    
+    cursor: pointer;
+}
+
+.noInfo {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    font-style: italic;
+}
+
+#overlayContainer {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.9);
+    overflow-y: auto;
+}
+
+#overlayClose {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /*z-index: 100;*/
+}
+
+#taskDetail {
+    display: block;
+    margin: 50px auto;
+    width: 760px;
+    max-width: calc(100vw - 120px);
+    border-radius: 5px;
+    background: white;
+    padding: 20px 30px 50px 70px;
+    position: relative;
+    z-index: 102;
+}
+
+.mobile #taskDetail {
+    padding: 10px 20px 0px 20px;
+    max-width: calc(100vw - 60px);
+    margin: 20px auto;
+}
+
+.mobile .hicon {
+    display: none;
+}
+
+#taskDetailClose {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    text-align: right;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.taskDetailColumn {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.taskDetailColumn.column-1 {
+    max-width: 100%;
+    width: 580px;
+}
+
+.taskDetailColumn.column-2 {
+    width: 170px;
+}
+
+.mobile .taskDetailColumn.column-1 {
+    width: 100%;
+}
+
+.mobile .taskDetailColumn.column-2 {
+    width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#taskDetailTitle {
+    margin-bottom: 15px;
+    display: inline-block;
+    width: calc(100% - 50px);
+    min-height: 27px;
+}
+
+.taskDetailContentBlock {
+    margin-bottom: 25px;
+    max-width: calc(100% - 30px);
+    clear: both;
+}
+
+.mobile .taskDetailContentBlock {
+    max-width: calc(100%);
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 2px !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 5px 0 10px 0;
+    padding: 0;
+    position: relative;
+}
+
+#data-content img, #data-content table {
+    max-width: 100%;
+}
+
+p {
+    margin: 0 0 14px 0;
+}
+
+hr {
+    border: none;
+    border-bottom: solid 1px rgba(0,0,0,0.2);
+}
+
+blockquote {
+    border-left: solid 2px rgba(0,0,0,0.2);
+    color: gray;
+    margin-left: 5px;
+    padding-left: 10px;
+}
+
+.taskDetailSidebarBlock {
+    margin-bottom: 25px;
+    font-size: 12px;
+}
+
+.mobile .taskDetailSidebarBlock h4 {
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: none;
+}
+
+.hicon {
+    position: absolute;
+    top: 5px;
+    left: -40px;
+    font-size: 20px;
+    color: #555555;
+}
+
+.tag, .assignee, .status {
+    display: inline-block;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-size: 10px;
+    margin: 0 3px 3px 0;
+    height: 14px;
+    min-width: 10px;
+    text-align: center;
+    line-height: 14px;
+}
+
+.assignee {
+    border: solid 1px #555555;
+    background: white;
+}
+
+.status {
+    border: solid 1px #555555;
+    display: block;
+    cursor: pointer;
+}
+
+a.link {
+    text-decoration: none;
+    color: #252525;
+}
+
+a.link:before {
+    font: normal normal normal 20px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f0c1';
+    font-size: 1.2em;
+    display: inline-block;
+    margin-right: 0.2em;
+}
+
+pre {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.inputEdit {
+    background: none;
+    border: none;
+    font-size: inherit;
+    font-weight: inherit;
+    width: 100%;
+    font-family: inherit;
+    border: solid 1px rgba(0,0,0,0.2);
+}
+
+#content-edit {
+    height: 300px;
+}
+
+#editContentIcon {
+    font-size: 15px;
+    cursor: pointer;
+    position: absolute;
+    top: -30px;
+    right: 0px;
+}
+
+#data-content {
+    position: relative;
+}
+
+.removable {
+    cursor: pointer;
+}
+
+.add {
+    cursor: pointer;
+    opacity: 0.3;
+}
+
+.add:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.deleteButton {
+    display: inline-block;
+    margin-left: 5px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    opacity: 1;
+}
+
+#data-captcha {
+    border-radius: 5px;
+    border: solid 1px #252525;
+    padding: 3px 5px;
+    width: 135px;
+}
+
+.selected {
+    border-width: 2px !important;
+}
+
+.planeControlButton.enabled {
+    background-color: rgba(0,0,0,0.2);
+}
+
+.taskDetailPrerequisite {
+    display: block;
+    width: 250px;
+    border-radius: 5px;
+    background: white;
+    cursor: default;
+    min-height: 70px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    position: relative;
+    border-width: 0 !important;
+}
+
+.task .preview, .taskDetailPrerequisite .preview {
+    width: calc(100% + 70px);
+    position: relative;
+    left: -40px;
+    margin-top: 10px;
+}
+
+#taskDetailTitle .preview {
+    display: none;
+}
+
+.mobile .no-mobile {
+    display: none !important;
+}
+
+#footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 80;
+    font-size: 10px;
+    background: white;
+    padding: 10px;
+    border-top-right-radius: 10px;
+}
+
+.gDocs {
+    width: 100%;
+    height: 400px;
+    border: solid 1px #aaa;
+}
+
+.gDocsOpen {
+    color: inherit;
+    text-decoration: none;
+    text-align: right;
+    display: block;
+    width: 100%;
+}
+
+.history::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border: solid 2px gray;
+    border-radius: 100%;
+    background: white;
+    position: absolute;
+    left: -5px;
+    top: 15px;
+}
+
+.history {
+    border-left: solid 2px gray;
+    margin-left: 10px;
+    padding: 10px 0 10px 20px;
+    position: relative;
+}
+
+.history .subtitle {
+    font-size: 10px;
+    color: rgba(0,0,0,0.4);
+}
+
+.otherUser {
+    display: block;
+    width: 15px;
+    height: 15px;
+    color: black;
+    opacity: 0.1;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.otherUser:after {
+    font: normal normal normal 15px/1 FontAwesome;
+    line-height: 15px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f06e";
+}
+
+#data-online span {
+    cursor: pointer;
+}
+
+/* STATUS COLORS */
+
+.status-yellow.task, .status-yellow.taskDetailPrerequisite {
+    /*background-color: #97e88e;
+    border: solid 1px #8bd682;*/
+    background-color: #ffffc9;
+    border: solid 1px #e7e7a8;
+}
+
+.status-yellow .taskIcon:before {
+    content: "\f013";
+    color: #ffae00;
+}
+
+.status-yellow .status.yellow {
+    background: #ccba15;
+    border: none;
+}
+
+.status-green.task, .status-green.taskDetailPrerequisite {
+    /*background-color: #97e88e;
+    border: solid 1px #8bd682;*/
+    background-color: #c3ffb3;
+    border: solid 1px #a9e699;
+}
+
+.status-green .taskIcon:before {
+    content: "\f00c";
+    color: #048104;
+}
+
+.status-green .status.green {
+    background: #048104;
+    border: none;
+    color: white;
+}
+
+.status-red.task, .status-red.taskDetailPrerequisite {
+    /*background-color: #97e88e;
+    border: solid 1px #8bd682;*/
+    background-color: #ffc8b2;
+    border: solid 1px #dca48e;
+}
+
+.status-red .taskIcon:before {
+    content: "\f12a";
+    color: #a10303;
+}
+
+.status-red .status.red {
+    background: #a10303;
+    border: none;
+    color: white;
+}
+
+.status-blue.task, .status-blue.taskDetailPrerequisite {
+    /*background-color: #97e88e;
+    border: solid 1px #8bd682;*/
+    background-color: #b7b3ff;
+    border: solid 1px #8f8fdb;
+}
+
+.status-blue .taskIcon:before {
+    content: "\f128";
+    color: #01008d;
+}
+
+.status-blue .status.blue {
+    background: #01008d;
+    border: none;
+    color: white;
+}
+
+.status-black.task, .status-black.taskDetailPrerequisite {
+    /*background-color: #97e88e;
+    border: solid 1px #8bd682;*/
+    background-color: #eeeeee;
+    border: solid 1px #7a7a7a;
+}
+
+.status-black .taskIcon:before {
+    content: "\f12e";
+    color: #7a7a7a;
+}
+
+.status-black .status.black {
+    background: #333333;
+    border: none;
+    color: white;
+}
+
+.dark {
+    background: #111111;
+}
+
+.dark #arrow {
+    fill:#787878;
+}
+
+.dark .taskConnection {
+    stroke:#787878;
+}
+
+.list .diagram-only {
+    display: none !important;
+}
+
+.diagram .list-only {
+    display: none !important;
+}
+
+#listContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 0 0 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.list-group {
+    display: block;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 10px 20px 0 20px;
+    min-width: 250px;
+}
+
+.list-group:nth-of-type(even) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.list-group-scroll {
+    display: block;
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    bottom: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.listtask {
+    display: block;
+    position: relative !important;
+    transform: none !important;
+    width: calc(100% - 20px);
+    margin: 10px 0;
+}
+
+.listtask.disabled {
+    display: none;
+}
+
+.list-group-scroll:after {
+    content: '';
+    display: block;
+    height: 20px;
+}
