@@ -1,0 +1,15 @@
+[submodule "fa"]
+	path = fa
+	url = https://github.com/FortAwesome/Font-Awesome.git
+	branch = 4.x
+[submodule "remarkable"]
+	path = remarkable
+	url = https://github.com/jonschlinkert/remarkable.git
+[submodule "api/ezSQL"]
+	path = api/ezSQL
+	url = https://github.com/ezSQL/ezsql.git
+	branch = v2
+[submodule "api/Slim"]
+	path = api/Slim
+	url = https://github.com/slimphp/Slim.git
+	branch = 2.x
